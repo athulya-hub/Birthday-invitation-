@@ -1,121 +1,299 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Birthday Invitation</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+<title>Isha Lakshmi - Birthday Invitation</title>
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Georgia, serif;
-      background: linear-gradient(135deg, #fff1f5, #ffe4ec);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      color: #5a3d45;
-    }
+<style>
+* {
+  box-sizing: border-box;
+}
 
-    .card {
-      width: 100%;
-      max-width: 430px;
-      background: white;
-      border-radius: 25px;
-      padding: 35px 25px;
-      text-align: center;
-      box-shadow: 0 10px 35px rgba(0,0,0,0.12);
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Georgia, serif;
+  background: linear-gradient(135deg, #fff7fa, #ffe6ef);
+  text-align: center;
+  color: #65404d;
+  overflow-x: hidden;
+}
 
-    .flower {
-      font-size: 45px;
-    }
+/* Envelope screen */
+.envelope-screen {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+}
 
-    h1 {
-      font-size: 38px;
-      margin: 10px 0;
-    }
+.envelope {
+  position: relative;
+  width: 280px;
+  height: 190px;
+  background: #f8b6ca;
+  border-radius: 8px;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+  transition: transform 0.4s;
+}
 
-    h2 {
-      font-size: 25px;
-      margin: 10px 0 20px;
-    }
+.envelope:hover {
+  transform: scale(1.04);
+}
 
-    .message {
-      font-size: 17px;
-      line-height: 1.7;
-    }
+.envelope::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-left: 140px solid transparent;
+  border-right: 140px solid transparent;
+  border-top: 105px solid #f29bb6;
+  z-index: 2;
+}
 
-    .details {
-      background: #fff4f7;
-      border-radius: 18px;
-      padding: 18px;
-      margin: 25px 0;
-      line-height: 1.8;
-    }
+.envelope::after {
+  content: "💌";
+  position: absolute;
+  top: 72px;
+  left: 0;
+  right: 0;
+  font-size: 42px;
+  z-index: 3;
+}
 
-    .location-btn {
-      display: inline-block;
-      text-decoration: none;
-      background: #d97998;
-      color: white;
-      padding: 13px 25px;
-      border-radius: 30px;
-      font-size: 16px;
-      font-weight: bold;
-    }
+.open-text {
+  margin-top: 25px;
+  font-size: 18px;
+  animation: pulse 1.5s infinite;
+}
 
-    .location-btn:hover {
-      background: #bd5f80;
-    }
+@keyframes pulse {
+  50% {
+    transform: scale(1.05);
+  }
+}
 
-    .footer {
-      margin-top: 25px;
-      font-size: 14px;
-      color: #8a6871;
-    }
-  </style>
+/* Invitation */
+.invitation {
+  display: none;
+  padding: 30px 18px 50px;
+}
+
+.invitation.show {
+  display: block;
+  animation: appear 1s ease;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+h1 {
+  font-size: 36px;
+  margin-bottom: 5px;
+}
+
+h2 {
+  font-size: 26px;
+  margin-top: 5px;
+}
+
+.message {
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* Video */
+.video-box {
+  width: 100%;
+  max-width: 420px;
+  margin: 25px auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  background: white;
+}
+
+.video-box video {
+  width: 100%;
+  display: block;
+}
+
+/* Details */
+.details {
+  max-width: 420px;
+  margin: 25px auto;
+  padding: 22px;
+  background: rgba(255,255,255,0.85);
+  border-radius: 20px;
+  line-height: 2;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.location-btn {
+  display: inline-block;
+  padding: 14px 26px;
+  background: #d97898;
+  color: white;
+  text-decoration: none;
+  border-radius: 30px;
+  font-weight: bold;
+}
+
+.footer {
+  margin-top: 30px;
+  font-size: 15px;
+}
+
+/* Floating decorations */
+.decoration {
+  position: fixed;
+  pointer-events: none;
+  animation: float 5s linear infinite;
+  font-size: 25px;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(100vh) rotate(0deg);
+    opacity: 0;
+  }
+
+  20% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-10vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <div class="card">
+<!-- Envelope -->
+<div class="envelope-screen" id="envelopeScreen">
 
-    <div class="flower">🌸✨🌸</div>
+  <div class="envelope" onclick="openInvitation()"></div>
 
-    <h1>You're Invited!</h1>
+  <div class="open-text">
+    👆 Tap the envelope to open
+  </div>
 
-    <h2>Birthday Celebration 🎂</h2>
+</div>
 
-    <p class="message">
-      Come and celebrate this special day with us.
-      Your presence will make the celebration even more beautiful! 💕
-    </p>
 
-    <div class="details">
-      📅 <strong>Date:</strong> 01 October 2026<br>
-      ⏰ <strong>Time:</strong> 7:00 PM<br>
-      📍 <strong>Venue:</strong> Our HOME
-    </div>
+<!-- Invitation -->
+<div class="invitation" id="invitation">
 
-    <a
-      class="location-btn"
-      href="https://maps.app.goo.gl/ihcj3MumxNMyJdnHA"
-      target="_blank">
-      📍 Open Location
-    </a>
+  <h1>🎂 You're Invited! 🎂</h1>
 
-    <p class="footer">
-      With love ❤️<br>
-      We can't wait to celebrate with you!
-    </p>
+  <h2>Happy Birthday, Isha Lakshmi 💕</h2>
+
+  <p class="message">
+    Come and celebrate this beautiful day with us!  
+    Your presence will make the celebration even more special. 🌸
+  </p>
+
+
+  <!-- Invitation video -->
+  <div class="video-box">
+
+    <video controls playsinline>
+      <source src="Pink and White Simple Birthday Party Invitation (A6)_20260923_082122_0000.mp4" type="video/mp4">
+
+      Your browser does not support video.
+    </video>
 
   </div>
+
+
+  <!-- Birthday information -->
+  <div class="details">
+
+    🎂 <strong>Birthday:</strong> Isha Lakshmi<br>
+
+    📅 <strong>Date:</strong> 01 October 2026<br>
+
+    ⏰ <strong>Time:</strong> 7:00 PM<br>
+
+    🏠 <strong>Venue:</strong> Our Home
+
+  </div>
+
+
+  <!-- Google Maps -->
+  <a
+    class="location-btn"
+    href="https://maps.app.goo.gl/ihcj3MumxNMyJdnHA"
+    target="_blank">
+
+    📍 Open Location
+
+  </a>
+
+
+  <p class="footer">
+    With love ❤️<br>
+    We can't wait to celebrate with you! ✨
+  </p>
+
+</div>
+
+
+<script>
+
+function openInvitation() {
+
+  document.getElementById("envelopeScreen").style.display = "none";
+
+  document.getElementById("invitation").classList.add("show");
+
+  createDecorations();
+
+}
+
+function createDecorations() {
+
+  const symbols = ["🌸", "✨", "💕", "🎈"];
+
+  for (let i = 0; i < 12; i++) {
+
+    const decoration = document.createElement("div");
+
+    decoration.className = "decoration";
+
+    decoration.innerHTML =
+      symbols[Math.floor(Math.random() * symbols.length)];
+
+    decoration.style.left =
+      Math.random() * 100 + "vw";
+
+    decoration.style.animationDelay =
+      Math.random() * 4 + "s";
+
+    document.body.appendChild(decoration);
+
+  }
+
+}
+
+</script>
 
 </body>
 </html>
